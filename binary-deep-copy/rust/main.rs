@@ -14,8 +14,8 @@ fn new_bnode(value: u64, left: BNode, right: BNode) -> BNode {
     }))
 }
 
-fn deep_copy(original: &BNode) -> BNode {
-    match original {
+fn deep_copy(node: &BNode) -> BNode {
+    match node {
         Some(x) => {
             return new_bnode(x.value, deep_copy(&x.left), deep_copy(&x.right))
         },
@@ -23,8 +23,25 @@ fn deep_copy(original: &BNode) -> BNode {
     }
 }
 
-fn test_new_btree() -> BNode {
-    return new_bnode(
+fn deep_compare(a: &BNode, b: &BNode) -> bool {
+    match (a, b) {
+        (Some(_a), Some(_b)) => {
+            if _a.value != _b.value {
+                return false;
+            }
+            if !deep_compare(&_a.left, &_b.left) || !deep_compare(&_a.right, &_b.right) {
+                return false;
+            }
+            return true;
+        },
+        (Some(_a), None) => false,
+        (None, Some(_b)) => false,
+        (None, None) => true
+    }
+}
+
+fn main() {
+    let node = new_bnode(
         10,
         new_bnode(
             6,
@@ -49,14 +66,21 @@ fn test_new_btree() -> BNode {
             None
         )
     );
-}
 
-fn test_check_btree(node: BNode)
-{
-}
-
-fn main() {
-    let node = test_new_btree();
     let copy = deep_copy(&node);
-    test_check_btree(copy);
+    let same = deep_compare(&node, &copy);
+
+    let mut status: i32 = 0;
+    let green = "\x1B[32m";
+    let red = "\x1B[31m";
+    let reset = "\x1b[0m";
+
+    if !same {
+        println!("{}failed{}", red, reset);
+        status = 1;
+    } else {
+        println!("{}passed{}", green, reset);
+    }
+
+    std::process::exit(status);
 }
