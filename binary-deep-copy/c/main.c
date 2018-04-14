@@ -6,10 +6,10 @@
 typedef struct bnode {
     struct bnode *left;
     struct bnode *right;
-    int value;
+    uint64_t value;
 } bnode_t;
 
-bnode_t *new_bnode(int value)
+bnode_t *new_bnode(uint64_t value)
 {
     bnode_t *node = calloc(1, sizeof(bnode_t));
     node->value = value;
