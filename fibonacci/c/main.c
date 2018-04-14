@@ -1,3 +1,5 @@
+// gcc -o main main.c
+
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -27,14 +29,17 @@ int expected_length = 51;
 
 int main(int argc, char **argv) {
 
+  int status = 0;
+
   for (int i = 0; i < expected_length; i++) {
     uint64_t result = fib(i);
     if (result != expected[i]) {
       printf(RED "failed" RESET " for %i: actual: %"PRIu64", expected: %"PRIu64"\n", i, result, expected[i]);
+      status = 1;
     } else {
       printf(GREEN "passed" RESET " for %i, actual: %"PRIu64"\n", i, result);
     }
   }
 
-  return 0;
+  return status;
 }

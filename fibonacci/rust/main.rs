@@ -1,3 +1,5 @@
+// rustc -o main main.rs
+
 fn fib(n: usize) -> u64 {
     if n == 0 {
         return 0;
@@ -18,6 +20,8 @@ fn fib(n: usize) -> u64 {
 }
 
 fn main() {
+    let mut status: i32 = 0;
+
     let green = "\x1B[32m";
     let red = "\x1B[31m";
     let reset = "\x1b[0m";
@@ -29,9 +33,12 @@ fn main() {
 
         if result != expected[n] {
             println!("{}failed{} for {}, actual: {}, expected: {}", red, reset, n, result, expected[n]);
+            status = 1;
         } else {
             println!("{}passed{} for {}, actual: {}", green, reset, n, result);
         }
 
     }
+
+    std::process::exit(status);
 }
