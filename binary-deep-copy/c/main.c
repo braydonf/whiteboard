@@ -1,3 +1,5 @@
+// gcc -o main main.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>

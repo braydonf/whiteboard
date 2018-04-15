@@ -1,3 +1,5 @@
+// rustc -o main main.rs
+
 struct INode {
     left: Option<Box<INode>>,
     right: Option<Box<INode>>,
