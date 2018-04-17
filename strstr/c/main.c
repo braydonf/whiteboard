@@ -18,7 +18,7 @@ const char *strstr_(const char *haystack, const char *needle)
         if (haystack[i] == needle[0]) {
             bool match = true;
             for (int j = 0; j < nlen; j++) {
-                if (haystack[i + j] != needle[j]) {
+                if (i + j >= hlen || haystack[i + j] != needle[j]) {
                     match = false;
                     break;
                 }
